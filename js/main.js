@@ -19,7 +19,8 @@ const commentMessage = [
 
 const pictureTemplate = document.querySelector(`#picture`)
   .content;
-pictureTemplate.querySelector(`.picture`);
+
+const pictureBlock = document.querySelector(`.pictures`);
 
 const randomNumbers = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -32,17 +33,16 @@ const generatePosts = function () {
     post.push({
       url: `photos/${i}.jpg`,
       likes: `${randomNumbers(15, 200)}`,
-      comments: generateComments(),
+      comments: `${generateComments().length}`,
     });
   }
   return post;
 };
-
 const generateComments = function () {
   const comments = [];
-  for (let j = 1; j <= randomNumbers(1, 6); j++) {
+  for (let i = 1; i <= randomNumbers(1, 6); i++) {
     comments.push({
-      avatar: `img/avatar-${j}.svg`,
+      avatar: `img/avatar-${i}.svg`,
       message: commentMessage[randomNumbers(0, 5)],
       name: commentatorNames[randomNumbers(0, 6)]
     });
@@ -52,7 +52,7 @@ const generateComments = function () {
 
 const posts = generatePosts();
 
-const createPosts = function (post) {
+const createPost = function (post) {
   const postElement = pictureTemplate.cloneNode(true);
   postElement.querySelector(`.picture__img`).src = post.url;
   postElement.querySelector(`.picture__likes`).textContent = post.likes;
@@ -64,11 +64,9 @@ const createPosts = function (post) {
 const renderPosts = function () {
   const fragment = document.createDocumentFragment();
   for (let i = 0; i < posts.length; i++) {
-    fragment.appendChild(createPosts(posts[i]));
+    fragment.appendChild(createPost(posts[i]));
   }
-  pictureTemplate.appendChild(fragment);
-
-  return fragment;
+  pictureBlock.appendChild(fragment);
 };
 
 renderPosts();
