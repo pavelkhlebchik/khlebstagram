@@ -1,4 +1,5 @@
 'use strict';
+
 const commentatorNames = [
   `Ника`,
   `Геннадий`,
@@ -22,6 +23,10 @@ const pictureTemplate = document.querySelector(`#picture`)
 
 const pictureBlock = document.querySelector(`.pictures`);
 
+const showBigPicture = document.querySelector(`.big-picture`);
+showBigPicture.classList.remove(`hidden`);
+// const bigPicturePreview = showBigPicture.querySelector(`.big-picture__preview`);
+
 const randomNumbers = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
@@ -38,6 +43,7 @@ const generatePosts = function () {
   }
   return post;
 };
+
 const generateComments = function () {
   const comments = [];
   for (let i = 1; i <= randomNumbers(1, 6); i++) {
@@ -70,3 +76,17 @@ const renderPosts = function () {
 };
 
 renderPosts();
+
+const getBigPictureInfo = function (info) {
+  showBigPicture.querySelector(`.big-picture__img img`).src = info.url;
+  showBigPicture.querySelector(`.likes-count`).textContent = info.likes;
+  showBigPicture.querySelector(`.comments-count`).textContent = info.comments;
+};
+
+const getRenderPictureInfo = function () {
+  const fragment = document.createDocumentFragment();
+  fragment.append(getBigPictureInfo(posts[0]));
+  showBigPicture.append(fragment);
+};
+
+getRenderPictureInfo();
