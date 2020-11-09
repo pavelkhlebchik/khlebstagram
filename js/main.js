@@ -23,9 +23,20 @@ const pictureTemplate = document.querySelector(`#picture`)
 
 const pictureBlock = document.querySelector(`.pictures`);
 
-const showBigPicture = document.querySelector(`.big-picture`);
-showBigPicture.classList.remove(`hidden`);
-// const bigPicturePreview = showBigPicture.querySelector(`.big-picture__preview`);
+const bigPicture = document.querySelector(`.big-picture`);
+bigPicture.classList.remove(`hidden`);
+
+const socialCommentsList = bigPicture.querySelector(`.social__comments`);
+const socialComment = bigPicture.querySelector(`.social__comment`);
+
+const socialCommentsCount = bigPicture.querySelector(`.social__comment-count`);
+socialCommentsCount.classList.add(`hidden`);
+
+const commentsLoader = bigPicture.querySelector(`.comments-loader`);
+commentsLoader.classList.add(`hidden`);
+
+const body = document.querySelector(`body`);
+body.classList.add(`modal-open`);
 
 const randomNumbers = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -57,6 +68,7 @@ const generateComments = function () {
 };
 
 const posts = generatePosts();
+const comments = generateComments();
 
 const createPost = function (post) {
   const postElement = pictureTemplate.cloneNode(true);
@@ -77,16 +89,32 @@ const renderPosts = function () {
 
 renderPosts();
 
-const getBigPictureInfo = function (info) {
-  showBigPicture.querySelector(`.big-picture__img img`).src = info.url;
-  showBigPicture.querySelector(`.likes-count`).textContent = info.likes;
-  showBigPicture.querySelector(`.comments-count`).textContent = info.comments;
+const showBigPicture = function (info) {
+  bigPicture.querySelector(`.big-picture__img img`).src = info.url;
+  bigPicture.querySelector(`.likes-count`).textContent = info.likes;
+  bigPicture.querySelector(`.comments-count`).textContent = (comments.length + 2);
+
+  return bigPicture;
 };
 
-const getRenderPictureInfo = function () {
+showBigPicture(posts[0]);
+
+const showCommentInfo = function (comment) {
+  const commentInfo = socialComment.cloneNode(true);
+  commentInfo.querySelector(`.social__picture`).src = comment.avatar;
+  commentInfo.querySelector(`.social__picture`).alt = comment.name;
+  commentInfo.querySelector(`.social__text`).textContent = comment.message;
+  // commentInfo.querySelector(`social__caption`).textContent = comment.description;
+
+  return commentInfo;
+};
+
+const renderComments = function () {
   const fragment = document.createDocumentFragment();
-  fragment.append(getBigPictureInfo(posts[0]));
-  showBigPicture.append(fragment);
+  for (let i = 0; i < comments.length; i++) {
+    fragment.appendChild(showCommentInfo(comments[i]));
+  }
+  socialCommentsList.appendChild(fragment);
 };
 
-getRenderPictureInfo();
+renderComments();
