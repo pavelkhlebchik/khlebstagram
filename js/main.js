@@ -1,4 +1,5 @@
 'use strict';
+
 const commentatorNames = [
   `Ника`,
   `Геннадий`,
@@ -22,6 +23,21 @@ const pictureTemplate = document.querySelector(`#picture`)
 
 const pictureBlock = document.querySelector(`.pictures`);
 
+const bigPicture = document.querySelector(`.big-picture`);
+
+
+const socialCommentsList = bigPicture.querySelector(`.social__comments`);
+const socialComment = bigPicture.querySelector(`.social__comment`);
+
+const socialCommentsCount = bigPicture.querySelector(`.social__comment-count`);
+
+
+const commentsLoader = bigPicture.querySelector(`.comments-loader`);
+
+
+const body = document.querySelector(`body`);
+
+
 const randomNumbers = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
@@ -32,12 +48,14 @@ const generatePosts = function () {
   for (let i = 1; i <= 25; i++) {
     post.push({
       url: `photos/${i}.jpg`,
+      description: `Тестим новую камеру! =)`,
       likes: `${randomNumbers(15, 200)}`,
       comments: `${generateComments().length}`,
     });
   }
   return post;
 };
+
 const generateComments = function () {
   const comments = [];
   for (let i = 1; i <= randomNumbers(1, 6); i++) {
@@ -51,6 +69,7 @@ const generateComments = function () {
 };
 
 const posts = generatePosts();
+const comments = generateComments();
 
 const createPost = function (post) {
   const postElement = pictureTemplate.cloneNode(true);
@@ -70,3 +89,35 @@ const renderPosts = function () {
 };
 
 renderPosts();
+
+const showBigPicture = function (info) {
+  bigPicture.classList.remove(`hidden`);
+  socialCommentsCount.classList.add(`hidden`);
+  commentsLoader.classList.add(`hidden`);
+  body.classList.add(`modal-open`);
+  bigPicture.querySelector(`.big-picture__img img`).src = info.url;
+  bigPicture.querySelector(`.social__caption`).textContent = info.description;
+  bigPicture.querySelector(`.likes-count`).textContent = info.likes;
+  bigPicture.querySelector(`.comments-count`).textContent = comments.length;
+};
+
+showBigPicture(posts[0]);
+
+const showCommentInfo = function (comment) {
+  const commentInfo = socialComment.cloneNode(true);
+  commentInfo.querySelector(`.social__picture`).src = comment.avatar;
+  commentInfo.querySelector(`.social__picture`).alt = comment.name;
+  commentInfo.querySelector(`.social__text`).textContent = comment.message;
+
+  return commentInfo;
+};
+
+const renderComments = function () {
+  const fragment = document.createDocumentFragment();
+  for (let i = 0; i < comments.length; i++) {
+    fragment.appendChild(showCommentInfo(comments[i]));
+  }
+  socialCommentsList.appendChild(fragment);
+};
+
+renderComments();
