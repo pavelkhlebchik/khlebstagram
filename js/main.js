@@ -23,7 +23,6 @@ const pictureTemplate = document.querySelector(`#picture`)
   .content;
 const picturesContainer = document.querySelector(`.pictures`);
 
-const picture = picturesContainer.querySelectorAll(`.picture`);
 const bigPicture = document.querySelector(`.big-picture`);
 const socialCommentsList = bigPicture.querySelector(`.social__comments`);
 const socialComment = bigPicture.querySelector(`.social__comment`);
@@ -104,10 +103,6 @@ const showBigPicture = function (info) {
 
 // showBigPicture(posts[0]);
 
-picture.addEventListener(`click`, function () {
-  showBigPicture(posts[0]);
-});
-
 const showCommentInfo = function (comment) {
   const commentInfo = socialComment.cloneNode(true);
   commentInfo.querySelector(`.social__picture`).src = comment.avatar;
@@ -126,6 +121,15 @@ const renderComments = function () {
 };
 
 renderComments();
+
+const openPictureCollection = function() {
+  const pictures = picturesContainer.querySelectorAll(`.picture`);
+  for (let picture of pictures) {
+    picture.addEventListener(`click`, function () {
+      showBigPicture(posts[0]);
+    });    
+  }
+};
 
 const uploadFile = document.querySelector(`#upload-file`);
 const uploadCancel = document.querySelector(`#upload-cancel`);
