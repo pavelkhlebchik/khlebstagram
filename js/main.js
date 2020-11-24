@@ -9,6 +9,7 @@ const commentatorNames = [
   `Паша`,
   `Нина`
 ];
+
 const commentMessage = [
   `Всё отлично!`,
   `В целом всё неплохо. Но не всё.`,
@@ -20,23 +21,23 @@ const commentMessage = [
 
 const pictureTemplate = document.querySelector(`#picture`)
   .content;
+const picturesContainer = document.querySelector(`.pictures`);
 
-const pictureBlock = document.querySelector(`.pictures`);
-
+const picture = picturesContainer.querySelectorAll(`.picture`);
 const bigPicture = document.querySelector(`.big-picture`);
-
-
 const socialCommentsList = bigPicture.querySelector(`.social__comments`);
 const socialComment = bigPicture.querySelector(`.social__comment`);
-
 const socialCommentsCount = bigPicture.querySelector(`.social__comment-count`);
-
-
 const commentsLoader = bigPicture.querySelector(`.comments-loader`);
-
-
 const body = document.querySelector(`body`);
 
+const showBlock = function (selector) {
+  selector.classList.remove(`hidden`);
+};
+
+const hideBlock = function (selector) {
+  selector.classList.add(`hidden`);
+};
 
 const randomNumbers = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -85,15 +86,15 @@ const renderPosts = function () {
   for (let i = 0; i < posts.length; i++) {
     fragment.appendChild(createPost(posts[i]));
   }
-  pictureBlock.appendChild(fragment);
+  picturesContainer.appendChild(fragment);
 };
 
 renderPosts();
 
 const showBigPicture = function (info) {
   bigPicture.classList.remove(`hidden`);
-  socialCommentsCount.classList.add(`hidden`);
-  commentsLoader.classList.add(`hidden`);
+  hideBlock(socialCommentsCount);
+  hideBlock(commentsLoader);
   body.classList.add(`modal-open`);
   bigPicture.querySelector(`.big-picture__img img`).src = info.url;
   bigPicture.querySelector(`.social__caption`).textContent = info.description;
@@ -101,7 +102,11 @@ const showBigPicture = function (info) {
   bigPicture.querySelector(`.comments-count`).textContent = comments.length;
 };
 
-showBigPicture(posts[0]);
+// showBigPicture(posts[0]);
+
+picture.addEventListener(`click`, function () {
+  showBigPicture(posts[0]);
+});
 
 const showCommentInfo = function (comment) {
   const commentInfo = socialComment.cloneNode(true);
@@ -121,3 +126,13 @@ const renderComments = function () {
 };
 
 renderComments();
+
+const uploadFile = document.querySelector(`#upload-file`);
+const uploadCancel = document.querySelector(`#upload-cancel`);
+
+const imgUpload = document.querySelector(`.img-upload__overlay`);
+
+uploadFile.addEventListener(`change`, function () {
+  // imgUpload.classList.remove(`hidden`);
+  showBlock(imgUpload);
+});
