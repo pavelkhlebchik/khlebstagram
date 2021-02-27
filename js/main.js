@@ -103,16 +103,6 @@ const showBigPicture = function (info) {
   bigPicture.querySelector(`.comments-count`).textContent = comments.length;
 };
 
-<<<<<<< HEAD
-// showBigPicture(posts[0]);
-
-// picture.addEventListener(`click`, function () {
-//   showBigPicture(posts[0]);
-//   showBigPicture.classList.remove(`modal-open`);
-// });
-
-=======
->>>>>>> b39cc84fa4eb690b8babb4a64307f15d6d9d11af
 const showCommentInfo = function (comment) {
   const commentInfo = socialComment.cloneNode(true);
   commentInfo.querySelector(`.social__picture`).src = comment.avatar;
