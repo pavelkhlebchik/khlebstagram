@@ -23,13 +23,14 @@ const pictureTemplate = document.querySelector(`#picture`)
   .content;
 const picturesContainer = document.querySelector(`.pictures`);
 
-const picture = picturesContainer.querySelectorAll(`.picture`);
 const bigPicture = document.querySelector(`.big-picture`);
 const socialCommentsList = bigPicture.querySelector(`.social__comments`);
 const socialComment = bigPicture.querySelector(`.social__comment`);
 const socialCommentsCount = bigPicture.querySelector(`.social__comment-count`);
 const commentsLoader = bigPicture.querySelector(`.comments-loader`);
 const body = document.querySelector(`body`);
+
+// const closePicture = bigPicture.querySelector(`.big-picture__cancel`);
 
 const showBlock = function (selector) {
   selector.classList.remove(`hidden`);
@@ -102,6 +103,7 @@ const showBigPicture = function (info) {
   bigPicture.querySelector(`.comments-count`).textContent = comments.length;
 };
 
+<<<<<<< HEAD
 // showBigPicture(posts[0]);
 
 // picture.addEventListener(`click`, function () {
@@ -109,6 +111,8 @@ const showBigPicture = function (info) {
 //   showBigPicture.classList.remove(`modal-open`);
 // });
 
+=======
+>>>>>>> b39cc84fa4eb690b8babb4a64307f15d6d9d11af
 const showCommentInfo = function (comment) {
   const commentInfo = socialComment.cloneNode(true);
   commentInfo.querySelector(`.social__picture`).src = comment.avatar;
@@ -140,6 +144,8 @@ const onPopupEscPress = function (evt) {
 };
 
 uploadFile.addEventListener(`change`, function () {
+
+  imgUpload.classList.remove(`hidden`);
   showBlock(imgUpload);
   body.classList.add(`modal-open`);
 });
@@ -149,7 +155,35 @@ uploadCancel.addEventListener(`click`, function () {
   body.classList.remove(`modal-open`);
 });
 
+<<<<<<< HEAD
 const closePopup = function () {
   imgUpload.classList.add(`hidden`);
   onPopupEscPress();
 };
+=======
+
+// Открывает и закрывает превью для фото
+
+// const showPicture = function () {
+//   const pictures = picturesContainer.querySelectorAll(`.picture`);
+//   for (let picture of pictures) {
+//     console.log(picture);
+//     picture.addEventListener(`click`, function () {
+//       showBigPicture(posts[]);
+//     });
+//   }
+// };
+
+// showPicture();
+
+const onPopupEscPress = function (evt) {
+  if (evt.key === `Escape`) {
+    evt.preventDefault();
+    closePopup();
+  }
+};
+
+uploadCancel.addEventListener(`click`, function () {
+  imgUpload.classList.add(`hidden`);
+});
+>>>>>>> b39cc84fa4eb690b8babb4a64307f15d6d9d11af
