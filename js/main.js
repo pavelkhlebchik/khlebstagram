@@ -155,12 +155,6 @@ uploadCancel.addEventListener(`click`, function () {
   body.classList.remove(`modal-open`);
 });
 
-<<<<<<< HEAD
-const closePopup = function () {
-  imgUpload.classList.add(`hidden`);
-  onPopupEscPress();
-};
-=======
 
 // Открывает и закрывает превью для фото
 
@@ -186,4 +180,3 @@ const onPopupEscPress = function (evt) {
 uploadCancel.addEventListener(`click`, function () {
   imgUpload.classList.add(`hidden`);
 });
->>>>>>> b39cc84fa4eb690b8babb4a64307f15d6d9d11af
