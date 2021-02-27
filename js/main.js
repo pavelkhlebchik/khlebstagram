@@ -104,9 +104,10 @@ const showBigPicture = function (info) {
 
 // showBigPicture(posts[0]);
 
-picture.addEventListener(`click`, function () {
-  showBigPicture(posts[0]);
-});
+// picture.addEventListener(`click`, function () {
+//   showBigPicture(posts[0]);
+//   showBigPicture.classList.remove(`modal-open`);
+// });
 
 const showCommentInfo = function (comment) {
   const commentInfo = socialComment.cloneNode(true);
@@ -129,10 +130,26 @@ renderComments();
 
 const uploadFile = document.querySelector(`#upload-file`);
 const uploadCancel = document.querySelector(`#upload-cancel`);
-
 const imgUpload = document.querySelector(`.img-upload__overlay`);
 
+const onPopupEscPress = function (evt) {
+  if (evt.key === `Escape`) {
+    evt.preventDefault();
+    closePopup();
+  }
+};
+
 uploadFile.addEventListener(`change`, function () {
-  // imgUpload.classList.remove(`hidden`);
   showBlock(imgUpload);
+  body.classList.add(`modal-open`);
 });
+
+uploadCancel.addEventListener(`click`, function () {
+  hideBlock(imgUpload);
+  body.classList.remove(`modal-open`);
+});
+
+const closePopup = function () {
+  imgUpload.classList.add(`hidden`);
+  onPopupEscPress();
+};
