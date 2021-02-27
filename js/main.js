@@ -160,13 +160,6 @@ uploadCancel.addEventListener(`click`, function () {
 
 // showPicture();
 
-const onPopupEscPress = function (evt) {
-  if (evt.key === `Escape`) {
-    evt.preventDefault();
-    closePopup();
-  }
-};
-
 uploadCancel.addEventListener(`click`, function () {
   imgUpload.classList.add(`hidden`);
 });
