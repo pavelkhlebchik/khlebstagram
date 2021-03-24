@@ -32,14 +32,6 @@ const body = document.querySelector(`body`);
 
 // const closePicture = bigPicture.querySelector(`.big-picture__cancel`);
 
-const showBlock = function (selector) {
-  selector.classList.remove(`hidden`);
-};
-
-const hideBlock = function (selector) {
-  selector.classList.add(`hidden`);
-};
-
 const randomNumbers = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
@@ -94,14 +86,29 @@ renderPosts();
 
 const showBigPicture = function (info) {
   bigPicture.classList.remove(`hidden`);
-  hideBlock(socialCommentsCount);
-  hideBlock(commentsLoader);
+  socialCommentsCount.classList.add(`hidden`);
+  commentsLoader.classList.add(`hidden`);
   body.classList.add(`modal-open`);
   bigPicture.querySelector(`.big-picture__img img`).src = info.url;
   bigPicture.querySelector(`.social__caption`).textContent = info.description;
   bigPicture.querySelector(`.likes-count`).textContent = info.likes;
   bigPicture.querySelector(`.comments-count`).textContent = comments.length;
 };
+
+// Открывает и закрывает превью для фото
+
+// const showPicture = function () {
+//   const pictures = picturesContainer.querySelectorAll(`.picture`);
+//   for (let picture of pictures) {
+//     console.log(picture);
+//     picture.addEventListener(`click`, function () {
+//       showBigPicture(posts[]);
+//     });
+//   }
+// };
+
+// showPicture();
+
 
 const showCommentInfo = function (comment) {
   const commentInfo = socialComment.cloneNode(true);
@@ -128,38 +135,39 @@ const imgUpload = document.querySelector(`.img-upload__overlay`);
 
 const onPopupEscPress = function (evt) {
   if (evt.key === `Escape`) {
-    evt.preventDefault();
     closePopup();
+    evt.preventDefault();
   }
 };
 
-uploadFile.addEventListener(`change`, function () {
-
+const openPopup = function () {
   imgUpload.classList.remove(`hidden`);
-  showBlock(imgUpload);
   body.classList.add(`modal-open`);
-});
+  document.addEventListener(`keydown`, onPopupEscPress);
+};
 
-uploadCancel.addEventListener(`click`, function () {
-  hideBlock(imgUpload);
-  body.classList.remove(`modal-open`);
-});
-
-
-// Открывает и закрывает превью для фото
-
-// const showPicture = function () {
-//   const pictures = picturesContainer.querySelectorAll(`.picture`);
-//   for (let picture of pictures) {
-//     console.log(picture);
-//     picture.addEventListener(`click`, function () {
-//       showBigPicture(posts[]);
-//     });
-//   }
-// };
-
-// showPicture();
-
-uploadCancel.addEventListener(`click`, function () {
+const closePopup = function () {
   imgUpload.classList.add(`hidden`);
+  body.classList.remove(`modal-open`);
+  uploadFile.value = ``;
+  document.removeEventListener(`keydown`, onPopupEscPress);
+};
+
+uploadFile.addEventListener(`change`, function () {
+  openPopup();
 });
+
+uploadCancel.addEventListener(`click`, function () {
+  closePopup();
+});
+
+const levelValue = function () {
+  const effectLevelPin = document.querySelector(`.effect-level__pin`);
+  const effectLevelDepth = document.querySelector(`.effect-level__depth`);
+  const effectLevelValue = document.querySelector(`.effect-level__value`);
+
+  effectLevelDepth.style.width = effectLevelValue.value + `%`;
+  effectLevelPin.style.left = effectLevelValue.value + `%`;
+};
+
+levelValue();
