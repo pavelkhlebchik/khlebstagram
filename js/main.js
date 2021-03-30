@@ -161,13 +161,56 @@ uploadCancel.addEventListener(`click`, function () {
   closePopup();
 });
 
-const levelValue = function () {
-  const effectLevelPin = document.querySelector(`.effect-level__pin`);
-  const effectLevelDepth = document.querySelector(`.effect-level__depth`);
-  const effectLevelValue = document.querySelector(`.effect-level__value`);
+const effectLevelPin = document.querySelector(`.effect-level__pin`);
+const effectLevelDepth = document.querySelector(`.effect-level__depth`);
+const effectLevelValue = document.querySelector(`.effect-level__value`);
+const effectContainer = document.querySelector(`.effect-level__line`);
 
-  effectLevelDepth.style.width = effectLevelValue.value + `%`;
-  effectLevelPin.style.left = effectLevelValue.value + `%`;
-};
+effectLevelPin.addEventListener(`mousedown`, function (evt) {
+  evt.preventDefault();
 
-levelValue();
+  let startCoords = {
+    x: evt.clientX,
+  };
+
+  const onMouseMove = function (moveEvt) {
+    moveEvt.preventDefault();
+
+    const shift = {
+      x: startCoords.x - moveEvt.clientX
+    };
+
+    startCoords = {
+      x: moveEvt.clientX
+    };
+
+    effectLevelPin.style.left = (effectLevelPin.offsetLeft - shift.x) + `px`;
+    effectLevelDepth.style.width = (effectLevelDepth.offsetWidth - shift.x) + `px`;
+  };
+
+  const onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+
+    document.removeEventListener(`mousemove`, onMouseMove);
+    document.removeEventListener(`mouseup`, onMouseUp);
+  };
+
+  document.addEventListener(`mousemove`, onMouseMove);
+  document.addEventListener(`mouseup`, onMouseUp);
+});
+
+const hashtagInput = imgUpload.querySelector(`.text__hashtags`);
+
+const regExpHashtag = (/(?:\s|^)#[\w\_]+(?:\s|$)/);
+
+hashtagInput.addEventListener(`input`, function () {
+  if (hashtagInput.value.length >= 20) {
+    hashtagInput.setCustomValidity(`Максимальное количество символов в одном Хэштеге - 20`);
+  } else {
+    hashtagInput.setCustomValidity(``);
+  }
+});
+
+imgUpload.addEventListener(`submit`, function (evt) {
+  evt.preventDefault();
+});
