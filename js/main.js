@@ -201,6 +201,7 @@ effectLevelPin.addEventListener(`mousedown`, function (evt) {
 
 const hashtagInput = imgUpload.querySelector(`.text__hashtags`);
 
+//  необходимо сделать 1)Проверку хэштегов по символам(типы и количество) 2)Валидация на самом инпуте 3)Валидацию самой формы
 const regExpHashtag = (/(?:\s|^)#[\w\_]+(?:\s|$)/);
 
 hashtagInput.addEventListener(`input`, function () {
