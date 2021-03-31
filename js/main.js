@@ -200,23 +200,23 @@ effectLevelPin.addEventListener(`mousedown`, function (evt) {
 });
 
 const hashtagInput = imgUpload.querySelector(`.text__hashtags`);
-//  необходимо сделать 1)Проверку хэштегов по символам(типы и количество) 2)Валидация на самом инпуте 3)Валидацию самой формы
-const validateHashtags = function () {
-  const regExpHashtag = /(?:\s|^)#[\w\_]+(?:\s|$)/g;
-  const correctHashtag = hashtagInput.value.match(regExpHashtag);
 
-  if (correctHashtag) {
-    hashtagInput.setCustomValidity(`Всё Ок`);
-  } else {
-    hashtagInput.setCustomValidity(`Нет совпадений`);
+//  необходимо сделать 1)Проверку хэштегов по символам(типы и количество) 2)Валидация на самом инпуте
+const validateHashtag = function () {
+  const regExHashtag = (/(?:^|)#[a-zA-Z0-9А-Яа-я\_]+(?:$|)/g);
+  const correctHashtags = hashtagInput.value.match(regExHashtag) || [];
+
+  for (let correctHashtag of correctHashtags) {
+    if (correctHashtags.length > 5) {
+      hashtagInput.setCustomValidity(`Слишком много хэштегов`);
+    } else {
+      hashtagInput.setCustomValidity(`Слишком много хэштегов2`);
+    }
   }
-
-  return correctHashtag;
+  return correctHashtags;
 };
 
-hashtagInput.addEventListener(`input`, function () {
-  validateHashtags();
-});
+hashtagInput.addEventListener(`input`, validateHashtag());
 
 imgUpload.addEventListener(`submit`, function (evt) {
   evt.preventDefault();
