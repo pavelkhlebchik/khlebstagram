@@ -201,16 +201,22 @@ effectLevelPin.addEventListener(`mousedown`, function (evt) {
 
 const hashtagInput = imgUpload.querySelector(`.text__hashtags`);
 
-//  необходимо сделать 1)Проверку хэштегов по символам(типы и количество) 2)Валидация на самом инпуте 3)Валидацию самой формы
-const regExpHashtag = (/(?:\s|^)#[\w\_]+(?:\s|$)/);
+//  необходимо сделать 1)Проверку хэштегов по символам(типы и количество) 2)Валидация на самом инпуте
+const validateHashtag = function () {
+  const regExHashtag = (/(?:^|)#[a-zA-Z0-9А-Яа-я\_]+(?:$|)/g);
+  const correctHashtags = hashtagInput.value.match(regExHashtag) || [];
 
-hashtagInput.addEventListener(`input`, function () {
-  if (hashtagInput.value.length >= 20) {
-    hashtagInput.setCustomValidity(`Максимальное количество символов в одном Хэштеге - 20`);
-  } else {
-    hashtagInput.setCustomValidity(``);
+  for (let correctHashtag of correctHashtags) {
+    if (correctHashtags.length > 5) {
+      hashtagInput.setCustomValidity(`Слишком много хэштегов`);
+    } else {
+      hashtagInput.setCustomValidity(`Слишком много хэштегов2`);
+    }
   }
-});
+  return correctHashtags;
+};
+
+hashtagInput.addEventListener(`input`, validateHashtag());
 
 imgUpload.addEventListener(`submit`, function (evt) {
   evt.preventDefault();
