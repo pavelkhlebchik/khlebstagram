@@ -161,6 +161,7 @@ uploadCancel.addEventListener(`click`, function () {
   closePopup();
 });
 
+
 const effectLevelPin = document.querySelector(`.effect-level__pin`);
 const effectLevelDepth = document.querySelector(`.effect-level__depth`);
 const effectLevelValue = document.querySelector(`.effect-level__value`);
@@ -199,21 +200,28 @@ effectLevelPin.addEventListener(`mousedown`, function (evt) {
   document.addEventListener(`mouseup`, onMouseUp);
 });
 
+
 const hashtagInput = imgUpload.querySelector(`.text__hashtags`);
 
 const hashtagValidator = function () {
   const regExForAllSymbol = /(?:^|)[a-zA-Z0-9А-Яа-я\W][^\s]+(?:$|)/g;
   const regExForHashtag = /(?:^|)#[a-zA-Z0-9А-Яа-я\_]+(?:$|)/g;
   const allValuesInHashtagInput = hashtagInput.value.match(regExForAllSymbol) || [];
-  const correctHashtags = hashtagInput.value.match(regExForHashtag) || [];
+  const allHashtags = hashtagInput.value.match(regExForHashtag) || [];
+  const uniqHashtags = allHashtags.reduce((uniq, item) => {
+    item = item.toLowerCase();
+    return uniq.includes(item) ? uniq : [...uniq, item];
+  }, []);
 
-  if (correctHashtags.some((hashtag) => hashtag.length >= 21)) {
+  if (allHashtags.some((hashtag) => hashtag.length >= 21)) {
     hashtagInput.setCustomValidity(
         `Максимальное количество символов хештега - 20`
     );
-  } else if (correctHashtags.length >= 6) {
+  } else if (uniqHashtags.length !== allHashtags.length) {
+    hashtagInput.setCustomValidity(`Хештеги не должны быть одинаковыми`);
+  } else if (allHashtags.length >= 6) {
     hashtagInput.setCustomValidity(`Максимальное количество хештегов - 5`);
-  } else if (correctHashtags < allValuesInHashtagInput) {
+  } else if (allHashtags < allValuesInHashtagInput) {
     hashtagInput.setCustomValidity(`Хештег должен начинаться с #, не должен быть пустым и не содержать символы "!@$%^&*"`);
   } else {
     hashtagInput.setCustomValidity(``);
@@ -223,4 +231,12 @@ const hashtagValidator = function () {
 
 hashtagInput.addEventListener(`input`, function () {
   hashtagValidator();
+});
+
+hashtagInput.addEventListener(`focus`, function () {
+  document.removeEventListener(`keydown`, onPopupEscPress);
+});
+
+hashtagInput.addEventListener(`blur`, function () {
+  document.addEventListener(`keydown`, onPopupEscPress);
 });
