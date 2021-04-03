@@ -201,23 +201,26 @@ effectLevelPin.addEventListener(`mousedown`, function (evt) {
 
 const hashtagInput = imgUpload.querySelector(`.text__hashtags`);
 
-//  необходимо сделать 1)Проверку хэштегов по символам(типы и количество) 2)Валидация на самом инпуте
-const validateHashtag = function () {
-  const regExHashtag = (/(?:^|)#[a-zA-Z0-9А-Яа-я\_]+(?:$|)/g);
-  const correctHashtags = hashtagInput.value.match(regExHashtag) || [];
+const hashtagValidator = function () {
+  const regExForAllSymbol = /(?:^|)[a-zA-Z0-9А-Яа-я\W][^\s]+(?:$|)/g;
+  const regExForHashtag = /(?:^|)#[a-zA-Z0-9А-Яа-я\_]+(?:$|)/g;
+  const allValuesInHashtagInput = hashtagInput.value.match(regExForAllSymbol) || [];
+  const correctHashtags = hashtagInput.value.match(regExForHashtag) || [];
 
-  for (let correctHashtag of correctHashtags) {
-    if (correctHashtags.length > 5) {
-      hashtagInput.setCustomValidity(`Слишком много хэштегов`);
-    } else {
-      hashtagInput.setCustomValidity(`Слишком много хэштегов2`);
-    }
+  if (correctHashtags.some((hashtag) => hashtag.length >= 21)) {
+    hashtagInput.setCustomValidity(
+        `Максимальное количество символов хештега - 20`
+    );
+  } else if (correctHashtags.length >= 6) {
+    hashtagInput.setCustomValidity(`Максимальное количество хештегов - 5`);
+  } else if (correctHashtags < allValuesInHashtagInput) {
+    hashtagInput.setCustomValidity(`Хештег должен начинаться с #, не должен быть пустым и не содержать символы "!@$%^&*"`);
+  } else {
+    hashtagInput.setCustomValidity(``);
   }
-  return correctHashtags;
 };
 
-hashtagInput.addEventListener(`input`, validateHashtag());
 
-imgUpload.addEventListener(`submit`, function (evt) {
-  evt.preventDefault();
+hashtagInput.addEventListener(`input`, function () {
+  hashtagValidator();
 });
