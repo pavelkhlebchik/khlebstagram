@@ -96,20 +96,6 @@
     bigPicture.querySelector(`.comments-count`).textContent = comments.length;
   };
 
-  // Открывает и закрывает превью для фото
-
-  // const showPicture = function () {
-  //   const pictures = picturesContainer.querySelectorAll(`.picture`);
-  //   for (let picture of pictures) {
-  //     console.log(picture);
-  //     picture.addEventListener(`click`, function () {
-  //       showBigPicture(posts[]);
-  //     });
-  //   }
-  // };
-
-  // showPicture();
-
 
   const showCommentInfo = function (comment) {
     const commentInfo = socialComment.cloneNode(true);
