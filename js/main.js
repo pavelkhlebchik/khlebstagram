@@ -165,7 +165,6 @@ const scaleControlSmaller = imgUpload.querySelector(`.scale__controll--smaller`)
 const scaleControlBigger = imgUpload.querySelector(`.scale__controll--bigger`);
 const scaleControlValue = imgUpload.querySelector(`.scale__controll--value`);
 
-
 const effectLevelPin = imgUpload.querySelector(`.effect-level__pin`);
 const effectLevelDepth = imgUpload.querySelector(`.effect-level__depth`);
 const effectLevelValue = imgUpload.querySelector(`.effect-level__value`);
