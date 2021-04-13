@@ -42,7 +42,7 @@ const generatePosts = function () {
   for (let i = 1; i <= 25; i++) {
     post.push({
       url: `photos/${i}.jpg`,
-      description: `Тестим новую камеру! =)`,
+      description: `Тестим новую камеру!`,
       likes: `${randomNumbers(15, 200)}`,
       comments: `${generateComments().length}`,
     });
