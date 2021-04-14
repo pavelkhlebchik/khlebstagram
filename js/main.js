@@ -115,4 +115,15 @@
   };
 
   renderComments();
+
+  const showPicture = function () {
+    const pictures = picturesContainer.querySelectorAll(`.picture`);
+    for (let i = 0; pictures.length >= i; i++) {
+      pictures[i].addEventListener(`click`, function () {
+        showBigPicture(posts[i]);
+      });
+    }
+  };
+
+  showPicture();
 })();
