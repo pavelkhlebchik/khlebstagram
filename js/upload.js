@@ -1,4 +1,5 @@
 'use strict';
+
 (function () {
   const uploadFile = document.querySelector(`#upload-file`);
   const uploadCancel = document.querySelector(`#upload-cancel`);
