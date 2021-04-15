@@ -131,6 +131,7 @@ renderComments();
 
 const uploadFile = document.querySelector(`#upload-file`);
 const uploadCancel = document.querySelector(`#upload-cancel`);
+const uploadSubmit = document.querySelector(`#upload-submit`);
 const imgUpload = document.querySelector(`.img-upload__overlay`);
 
 const onPopupEscPress = function (evt) {
@@ -164,7 +165,6 @@ uploadCancel.addEventListener(`click`, function () {
 const scaleControlSmaller = imgUpload.querySelector(`.scale__controll--smaller`);
 const scaleControlBigger = imgUpload.querySelector(`.scale__controll--bigger`);
 const scaleControlValue = imgUpload.querySelector(`.scale__controll--value`);
-
 
 const effectLevelPin = imgUpload.querySelector(`.effect-level__pin`);
 const effectLevelDepth = imgUpload.querySelector(`.effect-level__depth`);
@@ -231,7 +231,6 @@ const hashtagValidator = function () {
     hashtagInput.setCustomValidity(``);
   }
 };
-
 
 hashtagInput.addEventListener(`input`, function () {
   hashtagValidator();
