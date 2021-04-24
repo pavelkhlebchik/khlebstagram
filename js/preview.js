@@ -32,7 +32,7 @@
       startCoords = {
         x: moveEvt.clientX
       };
-      // не успевает за мышкой и сбиваются координаты
+      // не успевает за мышкой и сбиваются координаты + магические числа
       if (startCoords.x > 700 && startCoords.x < 1150) {
         effectLevelPin.style.left = (effectLevelPin.offsetLeft - shift.x) + `px`;
         effectLevelDepth.style.width = (effectLevelDepth.offsetWidth - shift.x) + `px`;

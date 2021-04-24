@@ -23,7 +23,7 @@
     uploadFile.value = ``;
     document.removeEventListener(`keydown`, onPopupEscPress);
   };
-
+  openPopup();
   uploadFile.addEventListener(`change`, function () {
     openPopup();
   });
