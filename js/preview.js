@@ -28,16 +28,16 @@
         x: moveEvt.clientX
       };
 
-      const leftLimit = startCoords.x - shift.x - effectContainer.getBoundingClientRect().left;
+      let leftLimit = startCoords.x - shift.x - effectContainer.getBoundingClientRect().left;
 
       if (leftLimit < 0) {
         leftLimit = 0;
       }
 
-      const rigthLimit = effectContainer.offsetWidth - effectLevelPin.offsetWidth;
+      let rightLimit = effectContainer.offsetWidth - effectLevelPin.offsetWidth;
 
-      if (leftLimit > rigthLimit) {
-        leftLimit = rigthLimit;
+      if (leftLimit > rightLimit) {
+        leftLimit = rightLimit;
       }
 
       effectLevelPin.style.left = leftLimit + `px`;
