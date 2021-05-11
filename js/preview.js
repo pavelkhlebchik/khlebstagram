@@ -28,21 +28,22 @@
         x: moveEvt.clientX
       };
 
-      const newLeft = startCoords.x - shift.x - effectContainer.getBoundingClientRect().left;
+      const leftLimit = startCoords.x - shift.x - effectContainer.getBoundingClientRect().left;
 
-      if (newLeft < 0) {
-        newLeft = 0;
+      if (leftLimit < 0) {
+        leftLimit = 0;
       }
 
       const rigthLimit = effectContainer.offsetWidth - effectLevelPin.offsetWidth;
 
-      if (newLeft > rigthLimit) {
-        newLeft = rigthLimit;
+      if (leftLimit > rigthLimit) {
+        leftLimit = rigthLimit;
       }
 
-      effectLevelPin.style.left = newLeft + `px`;
-      effectLevelDepth.style.width = newLeft + `px`;
+      effectLevelPin.style.left = leftLimit + `px`;
+      effectLevelDepth.style.width = leftLimit + `px`;
     };
+
     const onMouseUp = function (upEvt) {
       upEvt.preventDefault();
 
