@@ -34,7 +34,7 @@
         leftLimit = 0;
       }
 
-      let rightLimit = effectContainer.offsetWidth - effectLevelPin.offsetWidth;
+      let rightLimit = effectContainer.offsetWidth;
 
       if (leftLimit > rightLimit) {
         leftLimit = rightLimit;
