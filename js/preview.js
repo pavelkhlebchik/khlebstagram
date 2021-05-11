@@ -13,11 +13,6 @@
   effectLevelPin.addEventListener(`mousedown`, function (evt) {
     evt.preventDefault();
 
-    const limits = {
-      right: effectContainer.offsetWidth + effectContainer.offsetLeft - effectLevelPin.offsetWidth,
-      left: effectContainer.offsetLeft
-    };
-
     let startCoords = {
       x: evt.clientX,
     };
@@ -32,11 +27,21 @@
       startCoords = {
         x: moveEvt.clientX
       };
-      // не успевает за мышкой и сбиваются координаты + магические числа
-      if (startCoords.x > 700 && startCoords.x < 1150) {
-        effectLevelPin.style.left = (effectLevelPin.offsetLeft - shift.x) + `px`;
-        effectLevelDepth.style.width = (effectLevelDepth.offsetWidth - shift.x) + `px`;
+
+      const newLeft = startCoords.x - shift.x - effectContainer.getBoundingClientRect().left;
+
+      if (newLeft < 0) {
+        newLeft = 0;
       }
+
+      const rigthLimit = effectContainer.offsetWidth - effectLevelPin.offsetWidth;
+
+      if (newLeft > rigthLimit) {
+        newLeft = rigthLimit;
+      }
+
+      effectLevelPin.style.left = newLeft + `px`;
+      effectLevelDepth.style.width = newLeft + `px`;
     };
     const onMouseUp = function (upEvt) {
       upEvt.preventDefault();
