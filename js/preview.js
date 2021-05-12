@@ -42,6 +42,7 @@
 
       effectLevelPin.style.left = leftLimit + `px`;
       effectLevelDepth.style.width = leftLimit + `px`;
+      console.log(leftLimit + `px`);
     };
 
     const onMouseUp = function (upEvt) {
