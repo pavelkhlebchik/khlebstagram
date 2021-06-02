@@ -1,75 +1,29 @@
 'use strict';
-(function () {
-  const imgUpload = document.querySelector(`.img-upload__overlay`);
-  const scaleControlSmaller = imgUpload.querySelector(`.scale__control--smaller`);
-  const scaleControlBigger = imgUpload.querySelector(`.scale__control--bigger`);
-  const scaleControlValue = imgUpload.querySelector(`.scale__control--value`);
-  let minScale = 0;
-  console.log(minScale);
-  let maxScale = 100;
-  // вынести к утилитам и удалить обработчик событий
-  scaleControlBigger.addEventListener(`click`, function () {
-    if (minScale < 100) {
-      minScale++;
-      scaleControlValue.value = minScale + `%`;
-    }
-  });
 
-  scaleControlSmaller.addEventListener(`click`, function () {
-    if (maxScale > 0) {
-      minScale--;
-      scaleControlValue.value = minScale + `%`;
-    }
-  });
+const showBigPictureInfo = function (info) {
+  bigPicture.querySelector(`.big-picture__img img`).src = info.url;
+  bigPicture.querySelector(`.social__caption`).textContent = info.description;
+  bigPicture.querySelector(`.comments-count`).textContent = comments.length;
+  bigPicture.querySelector(`.likes-count`).textContent = info.likes;
+};
 
-  const effectLevelPin = imgUpload.querySelector(`.effect-level__pin`);
-  const effectLevelDepth = imgUpload.querySelector(`.effect-level__depth`);
-  const effectLevelValue = imgUpload.querySelector(`.effect-level__value`);
-  const effectContainer = imgUpload.querySelector(`.effect-level__line`);
 
-  effectLevelPin.addEventListener(`mousedown`, function (evt) {
-    evt.preventDefault();
+const showCommentInfo = function (comment) {
+  const commentInfo = socialComment.cloneNode(true);
+  commentInfo.querySelector(`.social__picture`).src = comment.avatar;
+  commentInfo.querySelector(`.social__text`).textContent = comment.message;
+  commentInfo.querySelector(`.social__picture`).alt = comment.name;
 
-    let startCoords = {
-      x: evt.clientX,
-    };
 
-    const onMouseMove = function (moveEvt) {
-      moveEvt.preventDefault();
+  return commentInfo;
+};
 
-      const shift = {
-        x: startCoords.x - moveEvt.clientX
-      };
+const renderComments = function () {
+  const fragment = document.createDocumentFragment();
+  for (let i = 0; i < comments.length; i++) {
+    fragment.appendChild(showCommentInfo(comments[i]));
+  }
+  socialCommentsList.appendChild(fragment);
+};
 
-      startCoords = {
-        x: moveEvt.clientX
-      };
-
-      let leftLimit = startCoords.x - shift.x - effectContainer.getBoundingClientRect().left;
-
-      if (leftLimit < 0) {
-        leftLimit = 0;
-      }
-
-      let rightLimit = effectContainer.offsetWidth;
-
-      if (leftLimit > rightLimit) {
-        leftLimit = rightLimit;
-      }
-
-      effectLevelPin.style.left = leftLimit + `px`;
-      effectLevelDepth.style.width = leftLimit + `px`;
-      console.log(leftLimit + `px`);
-    };
-
-    const onMouseUp = function (upEvt) {
-      upEvt.preventDefault();
-
-      document.removeEventListener(`mousemove`, onMouseMove);
-      document.removeEventListener(`mouseup`, onMouseUp);
-    };
-
-    document.addEventListener(`mousemove`, onMouseMove);
-    document.addEventListener(`mouseup`, onMouseUp);
-  });
-})();
+renderComments();
