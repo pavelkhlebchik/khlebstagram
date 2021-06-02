@@ -1,13 +1,10 @@
 'use strict';
 
 (function () {
-  const showBigPictureInfo = function (info) {
-    bigPicture.querySelector(`.big-picture__img img`).src = info.url;
-    bigPicture.querySelector(`.social__caption`).textContent = info.description;
-    bigPicture.querySelector(`.comments-count`).textContent = comments.length;
-    bigPicture.querySelector(`.likes-count`).textContent = info.likes;
-  };
-
+  const bigPicture = document.querySelector(`.big-picture`);
+  const socialCommentsList = bigPicture.querySelector(`.social__comments`);
+  const socialComment = document.querySelector(`#comment`)
+    .content;
 
   const showCommentInfo = function (comment) {
     const commentInfo = socialComment.cloneNode(true);
@@ -18,7 +15,7 @@
 
     return commentInfo;
   };
-
+  const comments = window.picture.generateComments();
   const renderComments = function () {
     const fragment = document.createDocumentFragment();
     for (let i = 0; i < comments.length; i++) {
