@@ -1,4 +1,5 @@
 'use strict';
+
 (function () {
   const imgUpload = document.querySelector(`.img-upload__overlay`);
   const scaleControlSmaller = imgUpload.querySelector(`.scale__control--smaller`);
