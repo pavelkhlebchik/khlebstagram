@@ -34,7 +34,6 @@
 
   const effectLevelPin = imgUpload.querySelector(`.effect-level__pin`);
   const effectLevelDepth = imgUpload.querySelector(`.effect-level__depth`);
-  const effectLevelValue = imgUpload.querySelector(`.effect-level__value`);
   const effectContainer = imgUpload.querySelector(`.effect-level__line`);
 
   effectLevelPin.addEventListener(`mousedown`, function (evt) {
@@ -68,9 +67,7 @@
       }
 
       effectLevelPin.style.left = leftLimit + `px`;
-      effectLevelDepth.style.
-        width = leftLimit + `px`;
-      console.log(leftLimit);
+      effectLevelDepth.style.width = leftLimit + `px`;
     };
 
     const onMouseUp = function (upEvt) {
