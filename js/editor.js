@@ -8,23 +8,24 @@
   const previewImg = imgUpload.querySelector(`.img-upload__preview img`);
 
   const counter = () => {
-    const maxScaleValue = 150;
+    const maxScaleValue = 100;
+    const scaleStep = 25;
     let counterDefaultValue = 100;
     scaleControlValue.value = 100 + `%`;
 
     scaleControlBigger.addEventListener(`click`, function () {
       if (counterDefaultValue < maxScaleValue) {
-        counterDefaultValue += 25;
+        counterDefaultValue += scaleStep;
         scaleControlValue.value = counterDefaultValue + `%`;
         previewImg.style.transform = `scale(${scaleControlValue.value})`;
       }
     });
 
     scaleControlSmaller.addEventListener(`click`, function () {
-      if (counterDefaultValue && counterDefaultValue > 25) {
-        counterDefaultValue -= 25;
-        scaleControlValue.value = counterDefaultValue + `%`;
-        previewImg.style.transform = `scale(${scaleControlValue.value})`;
+      if (counterDefaultValue && counterDefaultValue > scaleStep) {
+        counterDefaultValue -= scaleStep;
+        scaleControlValue.value = `${counterDefaultValue}%`;
+        previewImg.style.transform = `scale(${counterDefaultValue / 100})`;
       }
     });
   };
