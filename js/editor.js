@@ -5,23 +5,31 @@
   const scaleControlSmaller = imgUpload.querySelector(`.scale__control--smaller`);
   const scaleControlBigger = imgUpload.querySelector(`.scale__control--bigger`);
   const scaleControlValue = imgUpload.querySelector(`.scale__control--value`);
-  let minScale = 0;
-  console.log(minScale);
-  let maxScale = 100;
-  // вынести к утилитам и удалить обработчик событий
-  scaleControlBigger.addEventListener(`click`, function () {
-    if (minScale < 100) {
-      minScale++;
-      scaleControlValue.value = minScale + `%`;
-    }
-  });
+  const previewImg = imgUpload.querySelector(`.img-upload__preview img`);
 
-  scaleControlSmaller.addEventListener(`click`, function () {
-    if (maxScale > 0) {
-      minScale--;
-      scaleControlValue.value = minScale + `%`;
-    }
-  });
+  const counter = () => {
+    const maxScaleValue = 150;
+    let counterDefaultValue = 100;
+    scaleControlValue.value = 100 + `%`;
+
+    scaleControlBigger.addEventListener(`click`, function () {
+      if (counterDefaultValue < maxScaleValue) {
+        counterDefaultValue += 25;
+        scaleControlValue.value = counterDefaultValue + `%`;
+        previewImg.style.transform = `scale(${scaleControlValue.value})`;
+      }
+    });
+
+    scaleControlSmaller.addEventListener(`click`, function () {
+      if (counterDefaultValue && counterDefaultValue > 25) {
+        counterDefaultValue -= 25;
+        scaleControlValue.value = counterDefaultValue + `%`;
+        previewImg.style.transform = `scale(${scaleControlValue.value})`;
+      }
+    });
+  };
+
+  counter();
 
   const effectLevelPin = imgUpload.querySelector(`.effect-level__pin`);
   const effectLevelDepth = imgUpload.querySelector(`.effect-level__depth`);
