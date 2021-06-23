@@ -69,7 +69,6 @@
       effectLevelPin.style.left = leftLimit + `px`;
       effectLevelDepth.style.width = leftLimit + `px`;
     };
-
     const onMouseUp = function (upEvt) {
       upEvt.preventDefault();
 
@@ -80,4 +79,5 @@
     document.addEventListener(`mousemove`, onMouseMove);
     document.addEventListener(`mouseup`, onMouseUp);
   });
+
 })();

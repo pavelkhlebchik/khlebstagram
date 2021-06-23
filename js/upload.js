@@ -4,6 +4,7 @@
   const uploadFile = document.querySelector(`#upload-file`);
   const uploadCancel = document.querySelector(`#upload-cancel`);
   const imgUpload = document.querySelector(`.img-upload__overlay`);
+  const previewImg = imgUpload.querySelector(`.img-upload__preview img`);
   const hashtagInput = imgUpload.querySelector(`.text__hashtags`);
   const body = document.querySelector(`body`);
 
@@ -20,6 +21,7 @@
   const closePopup = function () {
     imgUpload.classList.add(`hidden`);
     body.classList.remove(`modal-open`);
+    previewImg.className = `effects__preview--none`;
     uploadFile.value = ``;
     document.removeEventListener(`keydown`, onPopupEscPress);
   };
